@@ -7,8 +7,10 @@ CREATE TEMPORARY FUNCTION halfwidth2fullwidth AS "org.wanjune.bigdata.udf.UDFHal
 Test for : Full-width to Half-width
 ``` HiveQL
 select fullwidth2halfwidth("１３１２３４５６７８９");
+select fullwidth2halfwidth(null);
 ```
 Test for : Half-width to Full-width
 ``` HiveQL
 select halfwidth2fullwidth("13123456789");
+select halfwidth2fullwidth(null);
 ```
