@@ -3,7 +3,10 @@ package org.wanjune.bigdata.util;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * FullwidthCharacterUtil
+ *
  * @author wanjune
+ * @date 2019/08/07
  */
 public class FullwidthCharacterUtil {
     /**

@@ -14,8 +14,9 @@ import org.wanjune.bigdata.util.FullwidthCharacterUtil;
  * @date 2019/08/07
  */
 @Description(
-        name = "Fullwidth2Halfwidth",
-        value = "Transform Full-width characters to Half-width characters"
+        name = "fullwidth2Halfwidth",
+        value = "_FUNC_(text) - Returns Half-width string",
+        extended = "text is a string with Full-width.\nExample:\n   > SELECT _FUNC_('１３４２３６７０９３１') FROM src LIMIT 1;\n  13423670931"
 )
 public class UDFFullwidth2Halfwidth extends UDF {
     private final Text result = new Text();
