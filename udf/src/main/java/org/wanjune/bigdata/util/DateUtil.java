@@ -23,7 +23,17 @@ public class DateUtil {
 
 
     /**
-     * Common Date-Format-Pattern
+     * Date-Format(Pattern)
+     *
+     * "yyyy-MM-dd HH:mm:ss zzz"
+     * "yyyy-MM-dd HH:mm:ss EE"
+     * "yyyy-MM-dd HH:mm:ss"
+     * "yyyy-MM-dd HH:mm"
+     * "yyyy-MM-dd"
+     * "yyyyMMddHHmmss"
+     * "yyyyMMdd"
+     * "yyyy年MM月dd日"
+     * "yyyy/MM/dd"
      */
     private static final List<String> DATE_PATTERN_LIST = Arrays.asList("yyyy-MM-dd HH:mm:ss zzz", "yyyy-MM-dd HH:mm:ss EE", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM-dd", "yyyyMMddHHmmss", "yyyyMMdd", "yyyy年MM月dd日", "yyyy/MM/dd");
 

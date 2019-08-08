@@ -36,16 +36,18 @@ select halfwidth2fullwidth("1３1 23４ 5A　6 b7ｃ8　9");
 
 -- -----------------------------------------------------------------------
 -- Quarter
--- parameter format(date[String]): "yyyy-MM-dd HH:mm:ss zzz"
-                                   "yyyy-MM-dd HH:mm:ss EE"
-                                   "yyyy-MM-dd HH:mm:ss"
-                                   "yyyy-MM-dd HH:mm"
-                                   "yyyy-MM-dd"
-                                   "yyyyMMddHHmmss"
-                                   "yyyyMMdd"
-                                   "yyyy年MM月dd日"
-                                   "yyyy/MM/dd"
--- parameter format(quarter): Stochastic Combination of year[yyyy] and quarter[QR/qr] 
+-- Date format : "yyyy-MM-dd HH:mm:ss zzz"
+                 "yyyy-MM-dd HH:mm:ss EE"
+                 "yyyy-MM-dd HH:mm:ss"
+                 "yyyy-MM-dd HH:mm"
+                 "yyyy-MM-dd"
+                 "yyyyMMddHHmmss"
+                 "yyyyMMdd"
+                 "yyyy年MM月dd日"
+                 "yyyy/MM/dd"
+                 Date (Hive)
+                 Timestamp (Hive)
+-- Quarter format : Stochastic Combination of year[yyyy] and quarter[QR/qr] 
 -- -----------------------------------------------------------------------
 select quarterex(null);
 -- (NOTHING)
