@@ -5,7 +5,7 @@ import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.wanjune.bigdata.util.FullwidthCharacterUtil;
+import org.wanjune.bigdata.util.CharacterUtil;
 
 /**
  * UDFHalfwidth2Fullwidth
@@ -35,7 +35,7 @@ public class UDFHalfwidth2Fullwidth extends UDF {
             return this.result;
         }
 
-        this.result.set(FullwidthCharacterUtil.transformHalfwidthToFullwidth(charactersString));
+        this.result.set(CharacterUtil.transformHalfwidthToFullwidth(charactersString));
         return this.result;
     }
 
