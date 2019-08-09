@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 
 /**
  * DateUtil
@@ -21,62 +22,87 @@ public class DateUtil {
      */
     private static final Calendar calendar = Calendar.getInstance();
 
-
     /**
      * Date-Format(Pattern)
-     *
-     * "yyyy-MM-dd HH:mm:ss zzz"
-     * "yyyy-MM-dd HH:mm:ss EE"
-     * "yyyy-MM-dd HH:mm:ss"
-     * "yyyy-MM-dd HH:mm"
-     * "yyyy-MM-dd"
-     * "yyyyMMddHHmmss"
-     * "yyyyMMdd"
-     * "yyyy年MM月dd日"
+     * <p>
+     * "yyyy-MM-dd HH:mm:ss zzz"<br/>
+     * "yyyy-MM-dd HH:mm:ss EE"<br/>
+     * "yyyy-MM-dd HH:mm:ss"<br/>
+     * "yyyy-MM-dd HH:mm"<br/>
+     * "yyyy-MM-dd"<br/>
+     * "yyyyMMddHHmmss"<br/>
+     * "yyyyMMdd"<br/>
+     * "yyyy年MM月dd日"<br/>
      * "yyyy/MM/dd"
      */
-    private static final List<String> DATE_PATTERN_LIST = Arrays.asList("yyyy-MM-dd HH:mm:ss zzz", "yyyy-MM-dd HH:mm:ss EE", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM-dd", "yyyyMMddHHmmss", "yyyyMMdd", "yyyy年MM月dd日", "yyyy/MM/dd");
+    private static final List<String> DATE_PATTERN_LIST =
+        Arrays.asList("yyyy-MM-dd HH:mm:ss zzz", "yyyy-MM-dd HH:mm:ss EE", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd", "yyyyMMddHHmmss", "yyyyMMdd", "yyyy年MM月dd日", "yyyy/MM/dd");
 
     /**
      * the Date String Convert to Date
      *
-     * @param dateString Date String
+     * @param dateString
+     *            Date String
      * @return Date
      */
     public static Date toDate(String dateString) {
+        return toDate(dateString, null);
+    }
+
+    /**
+     * the Date String Convert to Date
+     *
+     * @param dateString
+     *            Date String
+     * @param datePatternString
+     *            special date-format[pattern]
+     * @return Date
+     */
+    public static Date toDate(String dateString, String datePatternString) {
         SimpleDateFormat formatter;
         Date rDate = null;
-        for (String datePatternString : DATE_PATTERN_LIST) {
+        if (StringUtils.isEmpty(datePatternString)) {
+            for (String datePatternItem : DATE_PATTERN_LIST) {
+                formatter = new SimpleDateFormat(datePatternItem);
+                try {
+                    rDate = formatter.parse(dateString);
+                    break;
+                } catch (ParseException ex) {
+                    // NOTHING
+                }
+            }
+        } else {
             formatter = new SimpleDateFormat(datePatternString);
             try {
                 rDate = formatter.parse(dateString);
-                break;
             } catch (ParseException ex) {
-                //continue;
+                // NOTHING
             }
         }
+
         return rDate;
     }
 
     public static String quarter(Date pDate, String quarterPatternString) {
         calendar.setTime(pDate);
 
-        int intYear = calendar.get(Calendar.YEAR);
+        String strYear = String.valueOf(calendar.get(Calendar.YEAR));
         int intMonth = calendar.get(Calendar.MONTH) + 1;
 
-        int intQuarter = 0;
+        String strQuarter = StringUtils.EMPTY;
         if (intMonth < 4) {
-            intQuarter = 1;
+            strQuarter = "1";
         } else if (intMonth < 7) {
-            intQuarter = 2;
+            strQuarter = "2";
         } else if (intMonth < 10) {
-            intQuarter = 3;
+            strQuarter = "3";
         } else {
-            intQuarter = 4;
+            strQuarter = "4";
         }
 
-        return quarterPatternString.replace("yyyy", String.valueOf(intYear)).replace("QR", "Q".concat(String.valueOf(intQuarter))).replace("qr", String.valueOf(intQuarter));
-
+        return quarterPatternString.replace("yyyy", strYear).replace("QR", "Q".concat(strQuarter)).replace("qr",
+            strQuarter);
     }
 
 }

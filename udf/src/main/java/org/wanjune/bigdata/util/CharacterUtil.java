@@ -33,11 +33,11 @@ public class CharacterUtil {
     // The offset between Full-width and Half-width
     private static final int ASCII_HALF2FULL_OFFSET = 65248;
 
-
     /**
      * Transform Half-width characters to Full-width characters
      *
-     * @param characters : Half-width characters
+     * @param characters
+     *            : Half-width characters
      * @return Full-width characters
      */
     public static String transformHalfwidthToFullwidth(String characters) {
@@ -48,11 +48,11 @@ public class CharacterUtil {
         char[] charItemArray = characters.toCharArray();
         for (char charItem : charItemArray) {
             if (ASCII_HALFWIDTH_SPACE == charItem) {
-                // Half-width [Blank Space] (ASCII) : (32)
+                // Half-width [Space] (ASCII) : (32)
                 sbBuffer.append(ASCII_FULLWIDTH_SPACE);
             } else if ((charItem >= ASCII_HALFWIDTH_START) && (charItem <= ASCII_HALFWIDTH_END)) {
                 // Half-width (ASCII) : from [!](33) to [~](126)
-                sbBuffer.append((char) (charItem + ASCII_HALF2FULL_OFFSET));
+                sbBuffer.append((char)(charItem + ASCII_HALF2FULL_OFFSET));
             } else {
                 // Others
                 sbBuffer.append(charItem);
@@ -64,7 +64,8 @@ public class CharacterUtil {
     /**
      * Transform Full-width characters to Half-width characters
      *
-     * @param characters : Full-width characters
+     * @param characters
+     *            : Full-width characters
      * @return Half-width characters
      */
     public static String transformFullwidthToHalfwidth(String characters) {
@@ -75,11 +76,11 @@ public class CharacterUtil {
         char[] charItemArray = characters.toCharArray();
         for (char charItem : charItemArray) {
             if (ASCII_FULLWIDTH_SPACE == charItem) {
-                // Full-width [Blank Space] (ASCII) : (12288)
+                // Full-width [Space] (ASCII) : (12288)
                 sbBuffer.append(ASCII_HALFWIDTH_SPACE);
             } else if (charItem >= ASCII_FULLWIDTH_START && charItem <= ASCII_FULLWIDTH_END) {
                 // Full-width (ASCII) : from [！](65281) to [～](65374)
-                sbBuffer.append((char) (charItem - ASCII_HALF2FULL_OFFSET));
+                sbBuffer.append((char)(charItem - ASCII_HALF2FULL_OFFSET));
             } else {
                 // Others
                 sbBuffer.append(charItem);
@@ -90,12 +91,14 @@ public class CharacterUtil {
 
     /**
      * Clear up the text
-     * 1.Transform Full-width characters to Half-width characters
-     * 2.Remove the Control characters
-     * 3.Remove the [Blank Space] character
+     * <p>
+     * 1.Transform Full-width characters to Half-width characters<br/>
+     * 2.Remove the Control characters<br/>
+     * 3.Remove the [Space] character<br/>
      * 4.Remove the [DEL] character
      *
-     * @param characters : Full-width characters
+     * @param characters
+     *            : Full-width characters
      * @return Half-width characters
      */
     public static String clearText(String characters) {
@@ -107,11 +110,11 @@ public class CharacterUtil {
         char iChar;
         for (char charItem : charItemArray) {
             if (ASCII_FULLWIDTH_SPACE == charItem) {
-                // Full-width [Blank Space] (ASCII) : (12288)
+                // Full-width [Space] (ASCII) : (12288)
                 iChar = ASCII_HALFWIDTH_SPACE;
             } else if (charItem >= ASCII_FULLWIDTH_START && charItem <= ASCII_FULLWIDTH_END) {
                 // Full-width (ASCII) : from [！](65281) to [～](65374)
-                iChar = (char) (charItem - ASCII_HALF2FULL_OFFSET);
+                iChar = (char)(charItem - ASCII_HALF2FULL_OFFSET);
             } else {
                 // Others
                 iChar = charItem;

@@ -13,16 +13,12 @@ import org.wanjune.bigdata.util.CharacterUtil;
  * @author wanjune
  * @date 2019/08/07
  */
-@Description(
-        name = "fullwidth2Halfwidth",
-        value = "_FUNC_(text) - Returns Half-width string",
-        extended = "text is a string with Full-width.\nExample:\n   > SELECT _FUNC_('１３４２３６７０９３１') FROM src LIMIT 1;\n  13423670931"
-)
+@Description(name = "fullwidth2Halfwidth", value = "_FUNC_(text) - Returns Half-width string",
+    extended = "text is a string with Full-width.\nExample:\n   > SELECT _FUNC_('１３４２３６７０９３１') FROM src LIMIT 1;\n  13423670931")
 public class UDFFullwidth2Halfwidth extends UDF {
     private final Text result = new Text();
 
-    public UDFFullwidth2Halfwidth() {
-    }
+    public UDFFullwidth2Halfwidth() {}
 
     public Text evaluate(NullWritable charactersText) {
         return this.result;
