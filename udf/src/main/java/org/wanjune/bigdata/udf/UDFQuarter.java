@@ -43,7 +43,7 @@ public class UDFQuarter extends UDF {
     }
 
     public Text evaluate(Text dateText) {
-        return evaluate(dateText, new Text(DEFAULT_QUARTER_PATTERN));
+        return evaluate(dateText, null);
     }
 
     public Text evaluate(Text dateText, Text quarterPatternText) {
@@ -59,7 +59,7 @@ public class UDFQuarter extends UDF {
     }
 
     public Text evaluate(DateWritable dateWrite) {
-        return evaluate(dateWrite, new Text(DEFAULT_QUARTER_PATTERN));
+        return evaluate(dateWrite, null);
     }
 
     public Text evaluate(DateWritable dateWrite, Text quarterPatternText) {
@@ -72,7 +72,7 @@ public class UDFQuarter extends UDF {
     }
 
     public Text evaluate(TimestampWritable timestampWrite) {
-        return evaluate(timestampWrite, new Text(DEFAULT_QUARTER_PATTERN));
+        return evaluate(timestampWrite, null);
     }
 
     public Text evaluate(TimestampWritable timestampWrite, Text quarterPatternText) {

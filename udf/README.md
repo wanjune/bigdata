@@ -52,6 +52,8 @@ select quarterex(null);
 -- (NOTHING)
 select quarterex(null, 'yyyyQR');
 -- (NOTHING)
+select quarterex(null, null);
+-- (NOTHING)
 select quarterex("20190101");
 -- 2019Q1
 select quarterex("2019-03-31");
@@ -72,6 +74,12 @@ select quarterex(CAST('2018-06-05' AS DATE));
 -- 2018Q2
 select quarterex(CAST('2018-06-05 16:24:39' AS TIMESTAMP));
 -- 2018Q2
+select quarterex("20190101", "");
+-- 2019Q1
+select quarterex("20190101", null);
+-- 2019Q1
+select quarterex("20190101", "tt");
+-- 2019Q1
 select quarterex("20190101", "yyyyQR");
 -- 2019Q1
 select quarterex("2019-03-31", "yyyy-QR");
@@ -124,8 +132,12 @@ select clear_text("１-AＤ 1　1 01");
 -- -----------------------------------------------------------------------
 select to_date2(null);
 -- (NULL)
-select to_date2(null, 'yyyy-MM-dd');
---  (NULL)
+select to_date2(null, "yyyy-MM-dd");
+-- (NULL)
+select to_date2(null, "");
+-- (NULL)
+select to_date2(null, null);
+-- (NULL)
 select to_date2("20190101");
 -- 2019-01-01
 select to_date2("2019-03-31");

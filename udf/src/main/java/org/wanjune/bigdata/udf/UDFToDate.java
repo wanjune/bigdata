@@ -25,41 +25,25 @@ public class UDFToDate extends UDF {
     public UDFToDate() {}
 
     public DateWritable evaluate(Text dateText) {
-
-        if (null == dateText || StringUtils.isEmpty(dateText.toString())) {
-            return null;
-        }
-
-        Date rdate = DateUtil.toDate(dateText.toString());
-
-        if (null != rdate) {
-            this.result.set(new java.sql.Date(rdate.getTime()));
-            return this.result;
-        } else {
-            return null;
-        }
-
+        return this.evaluate(dateText, null);
     }
 
     public DateWritable evaluate(Text dateText, Text datePatternText) {
+        Date rdate = toDtate(dateText, datePatternText);
 
-        if (null == dateText || StringUtils.isEmpty(dateText.toString())) {
+        if (null == rdate) {
             return null;
         }
 
-        Date rdate = null;
-        if (null != datePatternText && !StringUtils.isEmpty(datePatternText.toString())) {
-            rdate = DateUtil.toDate(dateText.toString(), datePatternText.toString());
-        } else {
-            rdate = DateUtil.toDate(dateText.toString());
-        }
+        this.result.set(new java.sql.Date(rdate.getTime()));
+        return this.result;
+    }
 
-        if (null != rdate) {
-            this.result.set(new java.sql.Date(rdate.getTime()));
-            return this.result;
-        } else {
-            return null;
-        }
+    private Date toDtate(Text dateText, Text datePatternText) {
+        return (null == dateText || StringUtils.isEmpty(dateText.toString())) ? null
+            : (null == datePatternText || StringUtils.isEmpty(datePatternText.toString())
+                ? DateUtil.toDate(dateText.toString())
+                : DateUtil.toDate(dateText.toString(), datePatternText.toString()));
     }
 
 }
