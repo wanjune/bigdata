@@ -20,7 +20,7 @@ public class UDFClearText extends UDF {
 
     public UDFClearText() {}
 
-    public Text evaluate(NullWritable charactersText) {
+    public Text evaluate(NullWritable text) {
         return this.result;
     }
 
