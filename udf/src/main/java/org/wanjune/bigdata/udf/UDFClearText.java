@@ -26,13 +26,10 @@ public class UDFClearText extends UDF {
 
     public Text evaluate(Text text) {
 
-        String textString = text.toString();
-
-        if (StringUtils.isEmpty(textString)) {
-            return this.result;
+        if (!StringUtils.isEmpty(text.toString())) {
+            this.result.set(CharacterUtil.clearText(text.toString()));
         }
 
-        this.result.set(CharacterUtil.clearText(textString));
         return this.result;
     }
 

@@ -26,13 +26,10 @@ public class UDFFullwidth2Halfwidth extends UDF {
 
     public Text evaluate(Text charactersText) {
 
-        String charactersString = charactersText.toString();
-
-        if (StringUtils.isEmpty(charactersString)) {
-            return this.result;
+        if (!StringUtils.isEmpty(charactersText.toString())) {
+            this.result.set(CharacterUtil.transformFullwidthToHalfwidth(charactersText.toString()));
         }
 
-        this.result.set(CharacterUtil.transformFullwidthToHalfwidth(charactersString));
         return this.result;
     }
 
