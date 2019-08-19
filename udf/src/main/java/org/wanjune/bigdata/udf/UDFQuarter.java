@@ -27,6 +27,9 @@ import org.wanjune.bigdata.util.DateUtil;
         + "Example:\n   > SELECT _FUNC_('20190302', 'QR') FROM src LIMIT 1;\n  Q1\n"
         + "Example:\n   > SELECT _FUNC_('20190302', 'qr') FROM src LIMIT 1;\n  1\n")
 public class UDFQuarter extends UDF {
+
+    private final static String DEFAULT_QUARTER_PATTERN = "yyyyQR";
+
     private final Text result = new Text();
 
     public UDFQuarter() {}
@@ -40,58 +43,54 @@ public class UDFQuarter extends UDF {
     }
 
     public Text evaluate(Text dateText) {
-        return evaluate(dateText, new Text("yyyyQR"));
+        return evaluate(dateText, new Text(DEFAULT_QUARTER_PATTERN));
     }
 
     public Text evaluate(Text dateText, Text quarterPatternText) {
 
         String dateString = dateText.toString();
-        String quarterPatternString = quarterPatternText.toString();
+        Date date = !StringUtils.isEmpty(dateString) ? DateUtil.toDate(dateString) : null;
 
-        if (StringUtils.isEmpty(dateString)) {
-            return this.result;
+        if (null != date) {
+            this.result.set(DateUtil.quarter(date, this.getQuarterPatternString(quarterPatternText)));
         }
 
-        Date date = DateUtil.toDate(dateString);
-
-        if (null == date) {
-            return this.result;
-        }
-
-        this.result.set(DateUtil.quarter(date, quarterPatternString));
         return this.result;
     }
 
     public Text evaluate(DateWritable dateWrite) {
-        return evaluate(dateWrite, new Text("yyyyQR"));
+        return evaluate(dateWrite, new Text(DEFAULT_QUARTER_PATTERN));
     }
 
     public Text evaluate(DateWritable dateWrite, Text quarterPatternText) {
 
-        String quarterPatternString = quarterPatternText.toString();
-
-        if (dateWrite == null) {
-            return this.result;
+        if (null != dateWrite) {
+            this.result.set(DateUtil.quarter(dateWrite.get(), this.getQuarterPatternString(quarterPatternText)));
         }
 
-        this.result.set(DateUtil.quarter(dateWrite.get(), quarterPatternString));
         return this.result;
     }
 
     public Text evaluate(TimestampWritable timestampWrite) {
-        return evaluate(timestampWrite, new Text("yyyyQR"));
+        return evaluate(timestampWrite, new Text(DEFAULT_QUARTER_PATTERN));
     }
 
     public Text evaluate(TimestampWritable timestampWrite, Text quarterPatternText) {
 
-        String quarterPatternString = quarterPatternText.toString();
-
-        if (timestampWrite == null) {
-            return this.result;
+        if (null != timestampWrite) {
+            this.result
+                .set(DateUtil.quarter(timestampWrite.getTimestamp(), getQuarterPatternString(quarterPatternText)));
         }
 
-        this.result.set(DateUtil.quarter(timestampWrite.getTimestamp(), quarterPatternString));
         return this.result;
+    }
+
+    private String getQuarterPatternString(Text quarterPatternText) {
+        String quarterPatternString =
+            (null == quarterPatternText) ? DEFAULT_QUARTER_PATTERN : quarterPatternText.toString();
+
+        return (!quarterPatternString.contains("yyyy") && !quarterPatternString.contains("QR")
+            && !quarterPatternString.contains("qr")) ? DEFAULT_QUARTER_PATTERN : quarterPatternString;
     }
 
 }
